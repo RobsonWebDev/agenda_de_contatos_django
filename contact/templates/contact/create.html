@@ -7,23 +7,25 @@
     <h2>Contact</h2>
 
     <form 
-        action=""
+        action="{% url 'contact:create' %}"
         method="POST"
         enctype="multipart/form-data"
     >
         {% csrf_token %}
 
         <div class="form-content">
-        <div class="form-group">
-            <label for="id_first_name">LABEL</label>
-            <input type="text" name="first_name" maxlength="255" id="id_first_name">
-        </div>
-        </div>
-
-        <div class="form-content">
-        <div class="form-group">
-            <button class="btn" type="submit">Send</button>
-        </div>
+            {% for field in forms %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {{ field.errors }}
+                </div>
+            {% endfor %}
+            <div class="form-content">
+                <div class="form-group">
+                    <button class="btn" type="submit">Send</button>
+                </div>
+            </div>
         </div>
 
     </form>
